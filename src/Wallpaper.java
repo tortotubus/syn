@@ -17,13 +17,19 @@ public class Wallpaper {
 	}
 	
 	// Gets the RGB values from the BufferedImage and puts them in an array.
-	public byte[] getColorArray() {
+	private byte[] getColorArray() {
 		byte[] rgbArray = ((DataBufferByte) imageResource.getRaster().getDataBuffer()).getData();
 		return rgbArray;
 	}
 	
 	// Calculates the Euclidean distance between two points in three-dimensional RBG space.
-	private double euclideanDistance() {}
+	private double euclideanDistance(int[] pointOne, int[] pointTwo) {}
+	
+	// Calculates the centroid of given points.
+	private void calculateCentroid() {}
+	
+	// Returns k clusters of colors in the image.
+	public byte[] colorSegmentation() {}
 	
 }
 

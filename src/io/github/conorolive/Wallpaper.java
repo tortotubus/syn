@@ -1,3 +1,5 @@
+package io.github.conorolive;
+
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -32,21 +34,32 @@ public class Wallpaper {
 		int[] clusterTable = new int[imageWidth*imageHeight];
 		Arrays.fill(clusterTable, -1);
 		
-		for (int y=0;y<h;y++) {
-			for (int x=0;x<w;x++) {
+		for (int y=0;y<imageHeight;y++) {
+			for (int x=0;x<imageWidth;x++) {
 				int rgbValue = imageResource.getRGB(x, y);
 				Cluster rgbCluster = calculateCentroid(rgbValue);
 				
-				if ()
+				if (clusterTable[imageWidth*imageHeight+x] != rgbCluster.getID()) {
+					if (clusterTable[imageWidth*imageHeight+x] != -1) {
+						// Clearing out pixels from a previous cluster, if cluster is being overwritten.
+						imageClusters[clusterTable[imageWidth*imageHeight+x]].removePixel(rgbValue);
+					}
+					
+					// Adds the pixel to the cluster.
+					rgbCluster.addPixel(rgbValue);	
+				}
+				
+				// Updating clusterTable.
+				clusterTable[imageWidth*imageHeight+x] = rgbCluster.getID();
 			}
-		}
-		
+		}	
 	}
 	
 	// Finds the geometric center between given points.
-	private Cluster calculateCentroid(int rgb, int minimum) {
+	private Cluster calculateCentroid(int rgb) {
 		Cluster colorCluster = null;
 		
+		int minimum = Integer.MAX_VALUE;
 		for (int i=0;i<imageClusters.length;i++) {
 			int distance = imageClusters[i].calculateDistance(rgb);
 			

@@ -1,3 +1,5 @@
+package io.github.conorolive;
+
 public class Cluster {
 	
 	int id;

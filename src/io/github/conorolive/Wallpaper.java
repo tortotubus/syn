@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
+import java.util.Random;
 
 public class Wallpaper {
 	
@@ -24,72 +25,54 @@ public class Wallpaper {
 		}
 	}
 
-	// Returns k clusters of colors in the image.
-	public void colorSegmentation(int k, int iterationCount) {
+	// Returns k amount of color clusters in the image
+	public void colorSegmentation(int k) {
+		// Initializing clusters
+		firstPassClusters = createClusters(imageResource, k);
 		
-		// Creating new Clusters
-		imageClusters = createClusters(imageResource, k);
 		
-		// Cluster table
-		int[] clusterTable = new int[imageWidth*imageHeight];
-		Arrays.fill(clusterTable, -1);
-		
-		for (int y=0;y<imageHeight;y++) {
-			for (int x=0;x<imageWidth;x++) {
-				int rgbValue = imageResource.getRGB(x, y);
-				Cluster rgbCluster = calculateCentroid(rgbValue);
-				
-				if (clusterTable[imageWidth*imageHeight+x] != rgbCluster.getID()) {
-					if (clusterTable[imageWidth*imageHeight+x] != -1) {
-						// Clearing out pixels from a previous cluster, if cluster is being overwritten.
-						imageClusters[clusterTable[imageWidth*imageHeight+x]].removePixel(rgbValue);
-					}
-					
-					// Adds the pixel to the cluster.
-					rgbCluster.addPixel(rgbValue);	
-				}
-				
-				// Updating clusterTable.
-				clusterTable[imageWidth*imageHeight+x] = rgbCluster.getID();
-			}
-		}	
 	}
 	
 	// Finds the geometric center between given points.
 	private Cluster calculateCentroid(int rgb) {
-		Cluster colorCluster = null;
 		
-		int minimum = Integer.MAX_VALUE;
-		for (int i=0;i<imageClusters.length;i++) {
-			int distance = imageClusters[i].calculateDistance(rgb);
-			
-			if (distance > minimum) {
-				minimum = distance;
-				colorCluster = imageClusters[i];
-			}
-		}
-		
-		return colorCluster;
 	}
 	
-	// Creates clusters.
-	private Cluster[] createClusters(BufferedImage image, int k) {
-		Cluster[] newClusters = new Cluster[k];
-		int x = 0;
-		int y = 0;
-		
-		int dx = imageWidth/k;
-		int dy = imageHeight/k;
+	// Creates initial clusters evenly spaced out across the image.
+	private Cluster[] createClustersDiagonal(BufferedImage imageResource, int k) {
+        Cluster[] newClusterArray = new Cluster[k]; 
+        
+        int x = 0; 
+        int y = 0; 
+        
+        int dx = imageWidth/k; 
+        int dy = imageHeight/k; 
+        
+        for (int i=0;i<k;i++) { 
+        	newClusterArray[i] = new Cluster(i,imageResource.getRGB(x, y)); 
+            x+=dx; y+=dy; 
+        } 
+         
+        return newClusterArray; 
+	}
+	
+	// Creates initial clusters with centers selected at random.
+	private Cluster[] createClustersRandom(BufferedImage imageResource, int k) {
+		Cluster[] newClusterArray = new Cluster[k];
 		
 		for (int i=0;i<k;i++) {
-			newClusters[i] = new Cluster(i, image.getRGB(x, y));
-			x += dx;
-			y += dy;
+			newClusterArray[i] = new Cluster(i,imageResource.getRGB(randomInt(0, imageWidth), randomInt(0, imageHeight)));
 		}
 		
-		return newClusters;
+		return newClusterArray;
 	}
 	
+	// Returns a random integer.
+	private int randomInt(int min, int max) {
+	    Random rand = new Random();
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+	    return randomNum;
+	}
 	
 }
 

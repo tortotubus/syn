@@ -9,7 +9,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import java.util.Random;
 
-public class Wallpaper {
+public class ImageSegments {
 	
 	private BufferedImage imageResource;
 	private int imageHeight;

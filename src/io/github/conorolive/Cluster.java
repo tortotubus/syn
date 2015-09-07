@@ -2,22 +2,24 @@ package io.github.conorolive;
 
 public class Cluster {
 	
-	int id;
-	int pixelCount;
+	private int id;
+	private int pixelCount;
 	
-	int red;
-	int green;
-	int blue;
+	// Holds the current centroid.
+	private int red;
+	private int green;
+	private int blue;
 	
-	int reds;
-	int greens;
-	int blues;
+	// Holds all colors in cluster.
+	private int reds;
+	private int greens;
+	private int blues;
 	
 	// Cluster constructor class
 	public Cluster(int id, int rgb) {
-		int r = rgb>>16&0x000000FF;  
-        int g = rgb>> 8&0x000000FF;  
-        int b = rgb>> 0&0x000000FF;  
+		int r = rgb>>16&0xFF;  
+        int g = rgb>> 8&0xFF;  
+        int b = rgb>> 0&0xFF;  
         
         red = r; 
         green = g; 
@@ -36,12 +38,12 @@ public class Cluster {
 	}
 	
 	// Getter method for id.
-	int getID() {
+	public int getID() {
 		return id;
 	}
 	
-	// Getter method for RGB values.
-	int getRGB() {
+	// Gets current centroid.
+	public int getRGB() {
 		int r = reds / pixelCount;
 		int g = greens / pixelCount;
 		int b = blues / pixelCount;
@@ -49,10 +51,10 @@ public class Cluster {
 	}
 	
 	// Adding a RGB value to the cluster.
-	void addPixel(int color) {
-		int r = color>>16&0x000000FF;
-		int g = color>> 8&0x000000FF;
-		int b = color>> 0&0x000000FF;
+	public void addPixel(int color) {
+		int r = color>>16&0xFF;
+		int g = color>> 8&0xFF;
+		int b = color>> 0&0xFF;
 		
 		reds += r;
 		greens += g;
@@ -65,11 +67,11 @@ public class Cluster {
 		blue = blues/pixelCount;
 	}
 	
-	// Removing a RGB value to the cluster.
-	void removePixel(int color) {
-		int r = color>>16&0x000000FF;
-		int g = color>> 8&0x000000FF;
-		int b = color>> 0&0x000000FF;
+	// Removing a RGB value from the cluster.
+	public void removePixel(int color) {
+		int r = color>>16&0xFF;
+		int g = color>> 8&0xFF;
+		int b = color>> 0&0xFF;
 		
 		reds -= r;
 		greens -= g;
@@ -82,10 +84,11 @@ public class Cluster {
 		blue = blues/pixelCount;
 	}
 	
-	int calculateDistance(int color) {
-		int r = color>>16&0x000000FF;
-		int g = color>> 8&0x000000FF;
-		int b = color>> 0&0x000000FF;
+	// Calculates Euclidean distance between given pixel and centroid.
+	public int calculateDistance(int color) {
+		int r = color>>16&0xFF;
+		int g = color>> 8&0xFF;
+		int b = color>> 0&0xFF;
 		
 		int rx = Math.abs(red-r);
 		int gx = Math.abs(green-g);

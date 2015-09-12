@@ -8,10 +8,10 @@ public class Jankare {
 
 	public static void main(String[] args) {
 		
-		Wallpaper test = null;
+		ImageSegments test = null;
 		
 		try {
-			test = new Wallpaper(new URL("http://i.imgur.com/mpHgYA0.jpg"));
+			test = new ImageSegments(new URL("http://i.imgur.com/mpHgYA0.jpg"));
 		} catch (MalformedURLException e){
 			e.printStackTrace();
 		}

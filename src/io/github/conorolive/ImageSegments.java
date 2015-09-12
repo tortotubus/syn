@@ -18,7 +18,7 @@ public class ImageSegments {
 	private int[] imageColors;
 	
 	// Constructor taking a file resource.
-	public Wallpaper(File file) {
+	public ImageSegments(File file) {
 		try { 
 			imageResource = ImageIO.read(file);
 			imageHeight = imageResource.getHeight();
@@ -29,7 +29,7 @@ public class ImageSegments {
 	}
 	
 	// Constructor taking a URL.
-	public Wallpaper(URL url) throws MalformedURLException {
+	public ImageSegments(URL url) throws MalformedURLException {
 		try { 
 			imageResource = ImageIO.read(url);
 			imageHeight = imageResource.getHeight();

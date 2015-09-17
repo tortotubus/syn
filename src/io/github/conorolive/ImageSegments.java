@@ -14,8 +14,8 @@ public class ImageSegments {
 	private BufferedImage imageResource;
 	private int imageHeight;
 	private int imageWidth;
-	private Cluster[] imageClusters;
-	private int[] imageColors;
+	private Cluster[] imageClusters = new Cluster[0];
+	private int[] imageColors = new int[0];
 	
 	// Constructor taking a file resource.
 	public ImageSegments(File file) {
@@ -65,6 +65,29 @@ public class ImageSegments {
 	// Getter method for colors.
 	public int[] getColors() {
 		return imageColors;
+	}
+	
+	public String[] getColorsAsHex() {
+		// Makes a new string array to hold hex colors.
+		String[] imageColorsHex = new String[imageColors.length];
+		
+		// Checks to make sure the image's colors have been found first.
+		if (imageColors.length == 0) {
+			return null;
+		}
+		
+		// If colors have been found, copies RGB values into a new array as hex values.
+		else {
+			for (int i=0; i<imageColors.length; i++) {
+				int r = imageColors[i]>>16&0xFF;  
+	        	int g = imageColors[i]>> 8&0xFF;  
+	        	int b = imageColors[i]>> 0&0xFF;
+	        	
+	        	imageColorsHex[i] = ("#" + Integer.toHexString(r) + Integer.toHexString(g) + Integer.toHexString(b));
+			}
+			
+			return imageColorsHex;
+		}		
 	}
 	
 	// Finds the nearest existing cluster given a RGB value.

@@ -67,6 +67,7 @@ public class ImageSegments {
 		return imageColors;
 	}
 	
+	// Getter method returning colors as hex values.
 	public String[] getColorsAsHex() {
 		// Makes a new string array to hold hex colors.
 		String[] imageColorsHex = new String[imageColors.length];

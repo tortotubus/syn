@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import javax.swing.JSplitPane;
 import javax.swing.Box;
@@ -21,6 +22,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.BoxLayout;
 
 public class Jankare {
@@ -83,6 +85,20 @@ public class Jankare {
 		
 		JButton button_1 = new JButton("Choose File");
 		button_1.setAlignmentY(1.0f);
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+			    
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, PNG, or GIF Images", "jpg", "gif", "png");
+			    chooser.setFileFilter(filter);
+			    
+			    int returnVal = chooser.showOpenDialog(frmJankare);
+			    
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			       ImageSegments image = new ImageSegments(chooser.getSelectedFile());
+			    }
+			}
+		});
 		horizontalBox.add(button_1);
 		
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);

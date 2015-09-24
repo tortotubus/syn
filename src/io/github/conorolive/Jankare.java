@@ -78,6 +78,9 @@ public class Jankare {
 		JSpinner spinner = new JSpinner();
 		spinner.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		spinner.setAlignmentX(Component.LEFT_ALIGNMENT);
+		spinner.addChangeListener(new ChangeListener() {
+			
+		});
 		horizontalBox.add(spinner);
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);

@@ -3,31 +3,32 @@ package io.github.conorolive;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JProgressBar;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JTabbedPane;
-import javax.swing.JSplitPane;
 import javax.swing.Box;
-import java.awt.GridBagLayout;
 import javax.swing.JSpinner;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
-import java.awt.Dimension;
 import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.BoxLayout;
+import javax.swing.SpinnerNumberModel;
 
 public class Jankare {
 
 	private JFrame frmJankare;
+	private ImageSegments image;
+	private int k;
 
 	/**
 	 * Launch the application.
@@ -75,20 +76,24 @@ public class Jankare {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		horizontalBox.add(horizontalStrut);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		spinner.setAlignmentX(Component.LEFT_ALIGNMENT);
-		spinner.addChangeListener(new ChangeListener() {
-			
+		JSpinner kSpinner = new JSpinner();
+		kSpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		kSpinner.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		kSpinner.setAlignmentX(Component.LEFT_ALIGNMENT);
+		kSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				JSpinner spinner = (JSpinner)(e.getSource());
+				Jankare.this.k = (Integer)spinner.getValue();
+			}
 		});
-		horizontalBox.add(spinner);
+		horizontalBox.add(kSpinner);
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		horizontalBox.add(horizontalStrut_2);
 		
-		JButton button_1 = new JButton("Choose File");
-		button_1.setAlignmentY(1.0f);
-		button_1.addActionListener(new ActionListener() {
+		JButton fileButton = new JButton("Choose File");
+		fileButton.setAlignmentY(1.0f);
+		fileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 			    
@@ -98,11 +103,11 @@ public class Jankare {
 			    int returnVal = chooser.showOpenDialog(frmJankare);
 			    
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			       ImageSegments image = new ImageSegments(chooser.getSelectedFile());
+			       image = new ImageSegments(chooser.getSelectedFile());
 			    }
 			}
 		});
-		horizontalBox.add(button_1);
+		horizontalBox.add(fileButton);
 		
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		horizontalBox.add(horizontalStrut_3);
@@ -121,11 +126,29 @@ public class Jankare {
 		horizontalBox_1.add(panel_1);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
-		JTextArea txtrColors = new JTextArea();
-		txtrColors.setMargin(new Insets(4, 4, 4, 4));
-		txtrColors.setWrapStyleWord(true);
-		txtrColors.setLineWrap(true);
-		panel_1.add(txtrColors);
+		JTextArea colorText = new JTextArea();
+		colorText.setMargin(new Insets(4, 4, 4, 4));
+		colorText.setWrapStyleWord(true);
+		colorText.setLineWrap(true);
+		panel_1.add(colorText);
+		
+
+		JButton segmentButton = new JButton("Segment");
+		segmentButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		segmentButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Jankare.this.image == null) {
+					JOptionPane.showMessageDialog(frmJankare, "An image file must be chosen first.");
+				} else {
+					Jankare.this.image.colorSegmentation(k);
+					colorText.setText(Arrays.toString(image.getColorsAsHex()));
+				}
+			}
+		});
+		horizontalBox.add(segmentButton);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+		horizontalBox.add(horizontalStrut_1);
 		
 		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
 		horizontalBox_1.add(horizontalStrut_4);

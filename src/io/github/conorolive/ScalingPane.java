@@ -5,13 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+@SuppressWarnings("serial")
 public class ScalingPane extends javax.swing.JPanel {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2457491039467603953L;
-	
+
 	private BufferedImage image;
     
     public void setImage(BufferedImage bImage) {
@@ -47,21 +43,16 @@ public class ScalingPane extends javax.swing.JPanel {
     }
     
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
     	super.paintComponent(g);
-    	double scaleFactor = Math.min(1d, getScaleFactorToFit(new Dimension(image.getWidth(), image.getHeight()), getSize()));
     	
-    	// double scaleFactor = Math.min(1d, getScaleFactorToFill(new Dimension(image.getWidth(), image.getHeight()), getSize()));
-    	int scaleWidth = (int) Math.round(image.getWidth() * scaleFactor);
-    	int scaleHeight = (int) Math.round(image.getHeight() * scaleFactor);
-    	
-    	Image scaled = image.getScaledInstance(scaleWidth, scaleHeight, Image.SCALE_SMOOTH);
-    	int width = getWidth() - 1;
-    	int height = getHeight() - 1;
-
-    	int x = (width - scaled.getWidth(this)) / 2;
-    	int y = (height - scaled.getHeight(this)) / 2;
-
-    	g.drawImage(scaled, x, y, this);
+    	if (image != null) {
+    		double scaleFactor = Math.min(1.0, getScaleFactorToFill(new Dimension(image.getWidth(), image.getHeight()), getSize()));
+    		
+    		int scaleWidth = (int) Math.round(image.getWidth() * scaleFactor);
+    		int scaleHeight = (int) Math.round(image.getHeight() * scaleFactor);
+    		
+    		g.drawImage(image, 0, 0, scaleWidth, scaleHeight, this);
+    	}
     }
 }

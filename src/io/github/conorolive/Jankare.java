@@ -2,6 +2,8 @@ package io.github.conorolive;
 
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,19 +33,28 @@ import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.FlowLayout;
+import java.awt.Dimension;
+import javax.swing.JTextField;
 
 public class Jankare {
 
 	private JFrame frmJankare;
 	private ImageSegments image;
-	private int k;
-	private ImageIcon imageIcon;
+	private int k = 1;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+	    try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -68,25 +79,26 @@ public class Jankare {
 	 */
 	private void initialize() {
 		frmJankare = new JFrame();
+		frmJankare.setMinimumSize(new Dimension(550, 450));
 		frmJankare.setTitle("Jankare");
 		frmJankare.setBounds(100, 100, 550, 450);
 		frmJankare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJankare.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		Box verticalBox = Box.createVerticalBox();
-		frmJankare.getContentPane().add(verticalBox, BorderLayout.SOUTH);
+		Box controlsVerticalBox = Box.createVerticalBox();
+		frmJankare.getContentPane().add(controlsVerticalBox, BorderLayout.SOUTH);
 		
 		Component verticalStrut_2 = Box.createVerticalStrut(20);
-		verticalBox.add(verticalStrut_2);
+		controlsVerticalBox.add(verticalStrut_2);
 		
-		Box horizontalBox = Box.createHorizontalBox();
-		verticalBox.add(horizontalBox);
+		Box optionsHorizontalBox = Box.createHorizontalBox();
+		controlsVerticalBox.add(optionsHorizontalBox);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
-		horizontalBox.add(horizontalStrut);
+		optionsHorizontalBox.add(horizontalStrut);
 		
 		JSpinner kSpinner = new JSpinner();
-		kSpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		kSpinner.setModel(new SpinnerNumberModel(new Integer(k), new Integer(k), null, new Integer(k)));
 		kSpinner.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		kSpinner.setAlignmentX(Component.LEFT_ALIGNMENT);
 		kSpinner.addChangeListener(new ChangeListener() {
@@ -95,30 +107,35 @@ public class Jankare {
 				Jankare.this.k = (Integer)spinner.getValue();
 			}
 		});
-		horizontalBox.add(kSpinner);
+		optionsHorizontalBox.add(kSpinner);
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-		horizontalBox.add(horizontalStrut_2);
+		optionsHorizontalBox.add(horizontalStrut_2);
 		
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
-		verticalBox.add(verticalStrut_1);
+		controlsVerticalBox.add(verticalStrut_1);
 		
-		Box horizontalBox_1 = Box.createHorizontalBox();
-		verticalBox.add(horizontalBox_1);
+		Box textHorizontalBox = Box.createHorizontalBox();
+		GridBagConstraints textHorizontalBoxConstraints = new GridBagConstraints();
+		textHorizontalBoxConstraints.fill = GridBagConstraints.HORIZONTAL;
+		controlsVerticalBox.add(textHorizontalBox, textHorizontalBoxConstraints);
 		
 		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
-		horizontalBox_1.add(horizontalStrut_5);
+		textHorizontalBox.add(horizontalStrut_5);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
-		horizontalBox_1.add(panel_1);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		JPanel textPanelContainer = new JPanel();
+		textPanelContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
+		textPanelContainer.setDoubleBuffered(false);
+		textPanelContainer.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
+		textHorizontalBox.add(textPanelContainer);
+		textPanelContainer.setLayout(new BoxLayout(textPanelContainer, BoxLayout.X_AXIS));
 		
-		JTextArea colorText = new JTextArea();
-		colorText.setMargin(new Insets(4, 4, 4, 4));
-		colorText.setWrapStyleWord(true);
-		colorText.setLineWrap(true);
-		panel_1.add(colorText);
+		JTextArea textArea = new JTextArea();
+		textArea.setWrapStyleWord(true);
+		textArea.setMargin(new Insets(4, 4, 4, 4));
+		textArea.setLineWrap(true);
+		textArea.setAlignmentX(0.0f);
+		textPanelContainer.add(textArea);
 		
 
 		JButton segmentButton = new JButton("Segment");
@@ -129,23 +146,24 @@ public class Jankare {
 					JOptionPane.showMessageDialog(frmJankare, "An image file must be chosen first.");
 				} else {
 					Jankare.this.image.colorSegmentation(k);
-					colorText.setText(Arrays.toString(image.getColorsAsHex()));
+					textArea.setText(Arrays.toString(image.getColorsAsHex()));
 				}
 			}
 		});
-		horizontalBox.add(segmentButton);
+		optionsHorizontalBox.add(segmentButton);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
-		horizontalBox.add(horizontalStrut_1);
+		optionsHorizontalBox.add(horizontalStrut_1);
 		
 		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
-		horizontalBox_1.add(horizontalStrut_4);
+		textHorizontalBox.add(horizontalStrut_4);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
-		verticalBox.add(verticalStrut);
+		controlsVerticalBox.add(verticalStrut);
 		
 		ScalingPane imagePanel = new ScalingPane();
-		imagePanel.setBackground(Color.RED);
+		//JPanel imagePanel = new JPanel();
+		imagePanel.setBackground(Color.lightGray);
 		frmJankare.getContentPane().add(imagePanel);
 		imagePanel.setLayout(new BorderLayout());
 		
@@ -161,9 +179,7 @@ public class Jankare {
 			    
 			    int returnVal = chooser.showOpenDialog(frmJankare);
 			    
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			       image = new ImageSegments(chooser.getSelectedFile());
-			       
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {			       
 			       BufferedImage imageResource = null;
 			       
 			       try {
@@ -173,14 +189,18 @@ public class Jankare {
 			       }
 			       
 			       imagePanel.setImage(imageResource);
+			       imagePanel.repaint();
+			       
+			       image = new ImageSegments(chooser.getSelectedFile());
+
 
 			    }
 			}
 		});
-		horizontalBox.add(fileButton);
+		optionsHorizontalBox.add(fileButton);
 		
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
-		horizontalBox.add(horizontalStrut_3);
+		optionsHorizontalBox.add(horizontalStrut_3);
 		
 	}
 	

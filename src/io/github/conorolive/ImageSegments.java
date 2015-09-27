@@ -16,6 +16,11 @@ public class ImageSegments {
 	private int imageWidth;
 	private Cluster[] imageClusters = new Cluster[0];
 	private int[] imageColors = new int[0];
+
+	// Constructor taking a BufferedImage resource.
+	public ImageSegments(BufferedImage image) {
+		imageResource = image;
+	}
 	
 	// Constructor taking a file resource.
 	public ImageSegments(File file) {

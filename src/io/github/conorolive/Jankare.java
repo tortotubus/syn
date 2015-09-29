@@ -1,12 +1,10 @@
 package io.github.conorolive;
 
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,23 +17,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.Insets;
-import java.awt.RenderingHints;
-
-import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import java.awt.FlowLayout;
 import java.awt.Dimension;
 import javax.swing.JTextField;
 

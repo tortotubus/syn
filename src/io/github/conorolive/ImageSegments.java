@@ -1,5 +1,6 @@
 package io.github.conorolive;
 
+import java.awt.Color;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class ImageSegments {
 		for (int y=0; y<imageHeight; y++) {
 			for (int x=0; x<imageWidth; x++) {
 				int pixelRGB = imageResource.getRGB(x, y);
+
 				findNearestCluster(pixelRGB).addPixel(pixelRGB);
 			}
 		}
@@ -89,7 +91,21 @@ public class ImageSegments {
 	        	int g = imageColors[i]>> 8&0xFF;  
 	        	int b = imageColors[i]>> 0&0xFF;
 	        	
-	        	imageColorsHex[i] = ("#" + Integer.toHexString(r) + Integer.toHexString(g) + Integer.toHexString(b));
+	        	String redHex = Integer.toHexString(r);
+	        	String greenHex = Integer.toHexString(g);
+	        	String blueHex = Integer.toHexString(b);
+	        	
+	        	if (redHex.length() < 2) {
+	        		redHex = "0" + redHex;
+	        	}
+	        	if (greenHex.length() < 2) {
+	        		greenHex = "0" + greenHex;
+	        	}
+	        	if (blueHex.length() < 2) {
+	        		blueHex = "0" + blueHex;
+	        	}
+	        	
+	        	imageColorsHex[i] = ("#" + redHex + greenHex + blueHex);
 			}
 			
 			return imageColorsHex;

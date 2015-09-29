@@ -44,6 +44,7 @@ public class Jankare {
 	private JFrame frmJankare;
 	private ImageSegments image;
 	private int k = 1;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -123,19 +124,10 @@ public class Jankare {
 		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
 		textHorizontalBox.add(horizontalStrut_5);
 		
-		JPanel textPanelContainer = new JPanel();
-		textPanelContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textPanelContainer.setDoubleBuffered(false);
-		textPanelContainer.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
-		textHorizontalBox.add(textPanelContainer);
-		textPanelContainer.setLayout(new BoxLayout(textPanelContainer, BoxLayout.X_AXIS));
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setWrapStyleWord(true);
-		textArea.setMargin(new Insets(4, 4, 4, 4));
-		textArea.setLineWrap(true);
-		textArea.setAlignmentX(0.0f);
-		textPanelContainer.add(textArea);
+		textField = new JTextField();
+		textField.setMargin(new Insets(4, 4, 4, 4));
+		textHorizontalBox.add(textField);
+		textField.setColumns(10);
 		
 
 		JButton segmentButton = new JButton("Segment");
@@ -146,7 +138,7 @@ public class Jankare {
 					JOptionPane.showMessageDialog(frmJankare, "An image file must be chosen first.");
 				} else {
 					Jankare.this.image.colorSegmentation(k);
-					textArea.setText(Arrays.toString(image.getColorsAsHex()));
+					textField.setText(Arrays.toString(image.getColorsAsHex()));
 				}
 			}
 		});

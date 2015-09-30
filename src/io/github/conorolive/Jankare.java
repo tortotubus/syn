@@ -28,6 +28,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.Dimension;
 import javax.swing.JTextField;
+import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
 
 public class Jankare {
 
@@ -76,8 +78,15 @@ public class Jankare {
 		frmJankare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJankare.getContentPane().setLayout(new BorderLayout(0, 0));
 		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frmJankare.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		
+		JPanel mainPanel = new JPanel();
+		tabbedPane.addTab("Image", null, mainPanel, null);
+		mainPanel.setLayout(new BorderLayout(0, 0));
+		
 		Box controlsVerticalBox = Box.createVerticalBox();
-		frmJankare.getContentPane().add(controlsVerticalBox, BorderLayout.SOUTH);
+		mainPanel.add(controlsVerticalBox, BorderLayout.SOUTH);
 		
 		Component verticalStrut_2 = Box.createVerticalStrut(20);
 		controlsVerticalBox.add(verticalStrut_2);
@@ -144,9 +153,9 @@ public class Jankare {
 		controlsVerticalBox.add(verticalStrut);
 		
 		ScalingPane imagePanel = new ScalingPane();
+		mainPanel.add(imagePanel, BorderLayout.CENTER);
 		//JPanel imagePanel = new JPanel();
 		imagePanel.setBackground(Color.lightGray);
-		frmJankare.getContentPane().add(imagePanel);
 		imagePanel.setLayout(new BorderLayout());
 		
 		JButton fileButton = new JButton("Choose File");
@@ -183,6 +192,10 @@ public class Jankare {
 		
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		optionsHorizontalBox.add(horizontalStrut_3);
+		
+		JPanel exportPanel = new JPanel();
+		tabbedPane.addTab("Export", null, exportPanel, null);
+		exportPanel.setLayout(new BorderLayout(0, 0));
 		
 	}
 	

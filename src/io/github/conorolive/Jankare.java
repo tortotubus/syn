@@ -30,6 +30,10 @@ import java.awt.Dimension;
 import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
 
 public class Jankare {
 
@@ -37,6 +41,7 @@ public class Jankare {
 	private ImageSegments image;
 	private int k = 1;
 	private JTextField textField;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -195,8 +200,71 @@ public class Jankare {
 		
 		JPanel exportPanel = new JPanel();
 		tabbedPane.addTab("Export", null, exportPanel, null);
-		exportPanel.setLayout(new BorderLayout(0, 0));
+		exportPanel.setLayout(new BoxLayout(exportPanel, BoxLayout.X_AXIS));
 		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Name Value", "Color Value"
+			}
+		));
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		exportPanel.add(scrollPane);
+		
+		Box verticalBox = Box.createVerticalBox();
+		exportPanel.add(verticalBox);
+		
+		Component verticalStrut_3 = Box.createVerticalStrut(20);
+		verticalBox.add(verticalStrut_3);
+		
+		Box horizontalBox = Box.createHorizontalBox();
+		verticalBox.add(horizontalBox);
+		
+		Component horizontalStrut_7 = Box.createHorizontalStrut(20);
+		horizontalBox.add(horizontalStrut_7);
+		
+		JButton btnNewButton = new JButton("Export to File");
+		btnNewButton.setAlignmentY(Component.TOP_ALIGNMENT);
+		horizontalBox.add(btnNewButton);
+		
+		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
+		horizontalBox.add(horizontalStrut_6);
+		
+		Component verticalStrut_4 = Box.createVerticalStrut(20);
+		verticalBox.add(verticalStrut_4);
+		
+		Box horizontalBox_1 = Box.createHorizontalBox();
+		verticalBox.add(horizontalBox_1);
+		
+		Component horizontalStrut_8 = Box.createHorizontalStrut(20);
+		horizontalBox_1.add(horizontalStrut_8);
+		
+		JButton btnCopyToClipboard = new JButton("Copy to Clipboard");
+		btnCopyToClipboard.setAlignmentY(0.0f);
+		horizontalBox_1.add(btnCopyToClipboard);
+		
+		Component horizontalStrut_9 = Box.createHorizontalStrut(20);
+		horizontalBox_1.add(horizontalStrut_9);
+		
+		Component verticalStrut_5 = Box.createVerticalStrut(20);
+		verticalBox.add(verticalStrut_5);
 	}
 	
 }

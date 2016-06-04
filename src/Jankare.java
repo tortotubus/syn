@@ -1,5 +1,3 @@
-package io.github.conorolive;
-
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 
@@ -15,7 +13,6 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Insets;
@@ -30,18 +27,16 @@ import java.awt.Dimension;
 import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
+
+import io.github.conorolive.gui.ScalingImagePanel;
+import io.github.conorolive.jankare.ImageSegmentor;
 
 public class Jankare {
 
 	private JFrame frmJankare;
-	private ImageSegments image;
+	private ImageSegmentor image;
 	private int k = 1;
 	private JTextField textField;
-	private JTable table;
 
 	// Launch the application.
 
@@ -178,8 +173,8 @@ public class Jankare {
 					
 				} else {
 					
-					Jankare.this.image.colorSegmentation(k);
-					textField.setText(Arrays.toString(image.getColorsAsHex()));
+					Jankare.this.image.segmentPixels(k);
+					textField.setText(image.getColorsAsHex().toString());
 					
 				}
 				
@@ -198,9 +193,9 @@ public class Jankare {
 		Component verticalStrut = Box.createVerticalStrut(20);
 		controlsVerticalBox.add(verticalStrut);
 		
-		final ScalingPane imagePanel = new ScalingPane();
+		final ScalingImagePanel imagePanel = new ScalingImagePanel();
 		mainPanel.add(imagePanel, BorderLayout.CENTER);
-		//JPanel imagePanel = new JPanel();
+		
 		imagePanel.setBackground(Color.lightGray);
 		imagePanel.setLayout(new BorderLayout());
 		
@@ -225,6 +220,12 @@ public class Jankare {
 			       try {
 			    	   
 			    	   imageResource = ImageIO.read(chooser.getSelectedFile());
+
+				       imagePanel.setImage(imageResource);
+				       imagePanel.repaint();
+			    	   
+			    	   image = new ImageSegmentor(imageResource);
+						
 			    	   
 			       } catch (IOException exception) {
 			    	   
@@ -232,11 +233,6 @@ public class Jankare {
 								exception.toString());
 						
 			       }
-			       
-			       imagePanel.setImage(imageResource);
-			       imagePanel.repaint();
-			       
-			       image = new ImageSegments(chooser.getSelectedFile());
 
 			    }
 			    
@@ -249,80 +245,6 @@ public class Jankare {
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		optionsHorizontalBox.add(horizontalStrut_3);
 		
-		JPanel exportPanel = new JPanel();
-		tabbedPane.addTab("Export", null, exportPanel, null);
-		exportPanel.setLayout(new BoxLayout(exportPanel, BoxLayout.X_AXIS));
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				
-			new Object[][] {
-				
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				
-			},
-			
-			new String[] {
-					
-				"Name Value", "Color Value"
-			
-			}
-			
-		));
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		exportPanel.add(scrollPane);
-		
-		Box verticalBox = Box.createVerticalBox();
-		exportPanel.add(verticalBox);
-		
-		Component verticalStrut_3 = Box.createVerticalStrut(20);
-		verticalBox.add(verticalStrut_3);
-		
-		Box horizontalBox = Box.createHorizontalBox();
-		verticalBox.add(horizontalBox);
-		
-		Component horizontalStrut_7 = Box.createHorizontalStrut(20);
-		horizontalBox.add(horizontalStrut_7);
-		
-		JButton btnNewButton = new JButton("Export to File");
-		btnNewButton.setAlignmentY(Component.TOP_ALIGNMENT);
-		horizontalBox.add(btnNewButton);
-		
-		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
-		horizontalBox.add(horizontalStrut_6);
-		
-		Component verticalStrut_4 = Box.createVerticalStrut(20);
-		verticalBox.add(verticalStrut_4);
-		
-		Box horizontalBox_1 = Box.createHorizontalBox();
-		verticalBox.add(horizontalBox_1);
-		
-		Component horizontalStrut_8 = Box.createHorizontalStrut(20);
-		horizontalBox_1.add(horizontalStrut_8);
-		
-		JButton btnCopyToClipboard = new JButton("Copy to Clipboard");
-		btnCopyToClipboard.setAlignmentY(0.0f);
-		horizontalBox_1.add(btnCopyToClipboard);
-		
-		Component horizontalStrut_9 = Box.createHorizontalStrut(20);
-		horizontalBox_1.add(horizontalStrut_9);
-		
-		Component verticalStrut_5 = Box.createVerticalStrut(20);
-		verticalBox.add(verticalStrut_5);
 		
 	}
 	

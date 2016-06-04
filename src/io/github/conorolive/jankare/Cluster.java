@@ -4,8 +4,8 @@ package io.github.conorolive.jankare;
  * A cluster which can hold pixels as three-dimensional
  * vertices. 
  * 
- * @author		Conor Olive
- * @since		1.0
+ * @author	Conor Olive
+ * @since	1.0
  */
 public class Cluster 
 {
@@ -25,22 +25,22 @@ public class Cluster
 	/**
 	 * Constructs the cluster with a given initial pixel
 	 * 
-	 * @param 	pixel 	a pixel value formatted in TYPE_3BYTE_BGR used to 
-	 * 					initialize the cluster  
-	 * @see 			java.awt.image.BufferedImage#TYPE_3BYTE_BGR
+	 * @param 	pixel	a pixel value formatted in TYPE_3BYTE_BGR used to 
+	 * 			initialize the cluster  
+	 * @see 		java.awt.image.BufferedImage#TYPE_3BYTE_BGR
 	 */
 	public Cluster(int pixel) 
 	{
 		
 		int r = pixel >> 16&0xFF;  
-        int g = pixel >> 8&0xFF;  
-        int b = pixel >> 0&0xFF;  
+        	int g = pixel >> 8&0xFF;  
+        	int b = pixel >> 0&0xFF;  
+        	
+        	red = r;
+        	green = g; 
+        	blue = b; 
         
-        red = r; 
-        green = g; 
-        blue = b; 
-        
-        addPixel(pixel); 
+        	addPixel(pixel); 
         
 	}
 	
@@ -49,9 +49,9 @@ public class Cluster
 	 * centroid (also known as geometric center) of this cluster.
 	 *  
 	 * @param 	pixel 	a pixel value formatted in TYPE_3BYTE_BGR
-	 * @return			distance in euclidean space between this cluster's 
-	 * 					centroid and the given pixel
-	 * @see 			java.awt.image.BufferedImage#TYPE_3BYTE_BGR
+	 * @return		distance in euclidean space between this cluster's 
+	 * 			centroid and the given pixel
+	 * @see 		java.awt.image.BufferedImage#TYPE_3BYTE_BGR
 	 */
 	public int calculateDistance(int pixel) 
 	{
@@ -74,7 +74,7 @@ public class Cluster
 	 * Calculates the current centroid (also known as geometric center) of 
 	 * the cluster by finding the arithmetic mean of the pixels in this cluster.
 	 * 
-	 * @return 			the current centroid of this cluster
+	 * @return 		the current centroid of this cluster
 	 */
 	public int getCentroid() 
 	{
@@ -91,7 +91,7 @@ public class Cluster
 	 * Adds a given pixel value from the pixels in the cluster.
 	 * 
 	 * @param 	pixel 	a pixel value formatted in TYPE_3BYTE_BGR
-	 * @see 			java.awt.image.BufferedImage#TYPE_3BYTE_BGR 
+	 * @see 		java.awt.image.BufferedImage#TYPE_3BYTE_BGR 
 	 */
 	public void addPixel(int pixel) 
 	{
@@ -116,7 +116,7 @@ public class Cluster
 	 * Removes a given pixel value from the pixels in the cluster.
 	 * 
 	 * @param 	pixel 	a pixel value formatted in TYPE_3BYTE_BGR
-	 * @see 			java.awt.image.BufferedImage#TYPE_3BYTE_BGR 
+	 * @see 		java.awt.image.BufferedImage#TYPE_3BYTE_BGR 
 	 */
 	public void removePixel(int pixel) 
 	{

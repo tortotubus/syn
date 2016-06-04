@@ -51,7 +51,7 @@ public class ImageSegmentor {
 	private int imageWidth;
 	
 	/** 
-	 * Contains all clusters used in the algorithm
+	 * Contains all clusters used in the algorithm.
 	 */
 	private List<Cluster> pixelClusters;
 	
@@ -69,9 +69,10 @@ public class ImageSegmentor {
 	 * Class constructor specifying image to segment
 	 * 
 	 * @param	image	the image to be segmented
-	 * @see 			java.awt.image.BufferedImage
+	 * @see 		java.awt.image.BufferedImage
 	 */
-	public ImageSegmentor(BufferedImage image) {
+	public ImageSegmentor(BufferedImage image) 
+	{
 		
 		imageResource = image;
 		
@@ -88,18 +89,21 @@ public class ImageSegmentor {
 	 * 
 	 * @param	k	the amount of colors to find from the image
 	 */
-	public void segmentPixels(int k) {
+	public void segmentPixels(int k) 
+	{
 		
 		createClusters(k);
 		imageColors = new ArrayList<Integer>(k);
 		
-		for (Integer pixel : imagePixels) {
+		for (Integer pixel : imagePixels) 
+		{
 			
 			findNearestCluster(pixel).addPixel(pixel);
 			
 		}
 		
-		for (Cluster c : pixelClusters) {
+		for (Cluster c : pixelClusters) 
+		{
 			
 			imageColors.add(c.getCentroid());
 			
@@ -110,7 +114,8 @@ public class ImageSegmentor {
 	/**
 	 * Puts all pixels of imageResource in a list and shuffles the list 
 	 */
-	public void shufflePixelList() {
+	public void shufflePixelList() 
+	{
 		
 		// Creates a large enough ArrayList
 		imagePixels = new ArrayList<Integer>( imageWidth * imageHeight );
@@ -136,8 +141,8 @@ public class ImageSegmentor {
 	/**
 	 * Gets the pixels at the centroids of each cluster.
 	 *  
-	 * @return 		the representative colors of the image in TYPE_3BYTE_BGR
-	 * @see 		java.awt.image.BufferedImage#TYPE_3BYTE_BGR
+	 * @return		the representative colors of the image in TYPE_3BYTE_BGR
+	 * @see			java.awt.image.BufferedImage#TYPE_3BYTE_BGR
 	 */
 	public List<Integer> getColors() 
 	{
@@ -157,7 +162,7 @@ public class ImageSegmentor {
 	/**
 	 * Gets the hexadecimal color of pixels at the centroids of each cluster.
 	 * 
-	 * @return the representative colors of the image in hexadecimal format
+	 * @return 		the representative colors of the image in hexadecimal format
 	 */
 	public List<String> getColorsAsHex() 
 	{
@@ -176,37 +181,37 @@ public class ImageSegmentor {
 		for (Integer pixel : imageColors) {
 				
 			int r = pixel >> 16&0xFF;  
-	        int g = pixel >> 8&0xFF;  
-	        int b = pixel >> 0&0xFF;
+	        	int g = pixel >> 8&0xFF;  
+	        	int b = pixel >> 0&0xFF;
 	        	
-	        String redHex = Integer.toHexString(r);
-	        String greenHex = Integer.toHexString(g);
-	        String blueHex = Integer.toHexString(b);
+	        	String redHex = Integer.toHexString(r);
+	        	String greenHex = Integer.toHexString(g);
+	        	String blueHex = Integer.toHexString(b);
 	        	
-	        if ( redHex.length() < 2 ) 
-	        {
+	        	if ( redHex.length() < 2 ) 
+	        	{
+	        			
+	        		redHex = "0" + redHex;
+	        	
+	        	}
+	        	
+	        	if ( greenHex.length() < 2 ) 
+	        	{
 	        		
-	        	redHex = "0" + redHex;
-	        	
-	        }
-	        	
-	        if ( greenHex.length() < 2 ) 
-	        {
-	        	
-	        	greenHex = "0" + greenHex;
-	        	
-	        }
-	        	
-	        if ( blueHex.length() < 2 ) 
-	        {
+	        		greenHex = "0" + greenHex;
 	        		
-	       		blueHex = "0" + blueHex;
+	        	}
 	        	
-	        }
+	        	if ( blueHex.length() < 2 ) 
+	        	{
+	        			
+	       			blueHex = "0" + blueHex;
+	        		
+	        	}
 	        	
-	       	imageColorsHex.add( "#" + redHex + greenHex + blueHex );
+	       		imageColorsHex.add( "#" + redHex + greenHex + blueHex );
 			
-		}
+			}
 			
 		return imageColorsHex;
 		
@@ -216,7 +221,7 @@ public class ImageSegmentor {
 	 * Finds the nearest cluster to the given pixel 
 	 * 
 	 * @param	pixel	a pixel in TYPE_3BYTE_BGR format
-	 * @return			the cluster which is closest to pixel
+	 * @return		the cluster which is closest to pixel
 	 */
 	private Cluster findNearestCluster(int pixel) 
 	{

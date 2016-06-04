@@ -30,8 +30,7 @@ import java.util.List;
  * This algorithm is NP-hard.
  * 
  * @author	Conor Olive
- * @since	1.0
- * @see 	java.awt.image.BufferedImage	
+ * @see 	java.awt.image.BufferedImage
  */
 public class ImageSegmentor {
 	
@@ -68,8 +67,8 @@ public class ImageSegmentor {
 	/**
 	 * Class constructor specifying image to segment
 	 * 
-	 * @param	image	the image to be segmented
-	 * @see 		java.awt.image.BufferedImage
+	 * @param image the image to be segmented
+	 * @see java.awt.image.BufferedImage
 	 */
 	public ImageSegmentor(BufferedImage image) 
 	{
@@ -87,7 +86,7 @@ public class ImageSegmentor {
 	 * Uses a continuous k-means algorithm to find k amount of representative 
 	 * colors in the image.
 	 * 
-	 * @param	k	the amount of colors to find from the image
+	 * @param k the amount of colors to find from the image
 	 */
 	public void segmentPixels(int k) 
 	{
@@ -112,7 +111,7 @@ public class ImageSegmentor {
 	}
 	
 	/**
-	 * Puts all pixels of imageResource in a list and shuffles the list 
+	 * Puts all pixels of imageResource in a list and shuffles the list.
 	 */
 	public void shufflePixelList() 
 	{
@@ -141,8 +140,8 @@ public class ImageSegmentor {
 	/**
 	 * Gets the pixels at the centroids of each cluster.
 	 *  
-	 * @return		the representative colors of the image in TYPE_3BYTE_BGR
-	 * @see			java.awt.image.BufferedImage#TYPE_3BYTE_BGR
+	 * @return the representative colors of the image in TYPE_3BYTE_BGR
+	 * @see java.awt.image.BufferedImage#TYPE_3BYTE_BGR
 	 */
 	public List<Integer> getColors() 
 	{
@@ -162,7 +161,7 @@ public class ImageSegmentor {
 	/**
 	 * Gets the hexadecimal color of pixels at the centroids of each cluster.
 	 * 
-	 * @return 		the representative colors of the image in hexadecimal format
+	 * @return the representative colors of the image in hexadecimal format
 	 */
 	public List<String> getColorsAsHex() 
 	{
@@ -218,10 +217,10 @@ public class ImageSegmentor {
 	}	
 	
 	/**
-	 * Finds the nearest cluster to the given pixel 
+	 * Finds the nearest cluster to the given pixel.
 	 * 
-	 * @param	pixel	a pixel in TYPE_3BYTE_BGR format
-	 * @return		the cluster which is closest to pixel
+	 * @param pixel a pixel in TYPE_3BYTE_BGR format
+	 * @return the cluster which is closest to pixel
 	 */
 	private Cluster findNearestCluster(int pixel) 
 	{
@@ -252,10 +251,10 @@ public class ImageSegmentor {
 	/**
 	 * Creates a list of new clusters seeded with pixels from imagePixels.
 	 * 
-	 * @param 	k	the amount of clusters to create
-	 * @return		a list of Clusters with seeded 
-	 * @see 		Cluster
-	 * @see			ImageSegments#imagePixels
+	 * @param k the amount of clusters to create
+	 * @return a list of Clusters with seeded 
+	 * @see Cluster
+	 * @see ImageSegments#imagePixels
 	 */
 	private void createClusters(int k) 
 	{

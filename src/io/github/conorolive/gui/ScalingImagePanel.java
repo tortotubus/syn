@@ -8,8 +8,7 @@ import java.awt.image.BufferedImage;
  * Creates a JPanel that holds an image and will fit or fill the image as the 
  * window is resized.
  * 
- * @author 		Conor Olive
- * @since 		1.0.1
+ * @author Conor Olive
  */
 public class ScalingImagePanel extends javax.swing.JPanel {
 
@@ -70,9 +69,9 @@ public class ScalingImagePanel extends javax.swing.JPanel {
 	 * Finds the scaling factor needed to fit a whole image within a given 
 	 * dimension, without stretching.
 	 * 
-	 * @param	original	the dimension of the original image
-	 * @param	toFit		the dimension to fit the image to 
-	 * @return				the scale factor needed to fit the image
+	 * @param original the dimension of the original image
+	 * @param toFit the dimension to fit the image to 
+	 * @return the scale factor needed to fit the image
 	 */
 	private double getScaleFactorToFit(Dimension original, Dimension toFit) 
     {
@@ -100,9 +99,9 @@ public class ScalingImagePanel extends javax.swing.JPanel {
 	 * Finds the scaling factor needed to fill a image within a given 
 	 * dimension, allowing overflow.
 	 * 
-	 * @param	original	the dimension of the original image
-	 * @param	toFit		the dimension to fit the image to 
-	 * @return				the scale factor needed to fill the image
+	 * @param original the dimension of the original image
+	 * @param toFit the dimension to fit the image to 
+	 * @return the scale factor needed to fill the image
 	 */
 	private double getScaleFactorToFill(Dimension original, 
     		Dimension toFit) 
@@ -119,12 +118,12 @@ public class ScalingImagePanel extends javax.swing.JPanel {
     }
 	
 	/**
-	 * Finds the scaling factor between two dimensions
+	 * Finds the scaling factor between two dimensions.
 	 * 
-	 * @param	originalSize	the dimension of the original image 
-	 * @param 	targetSize		the target dimension of the image
-	 * @return					the scaling factor to scale the original image
-	 * 							by in order to reach the target size		
+	 * @param originalSize the dimension of the original image 
+	 * @param targetSize the target dimension of the image
+	 * @return the scaling factor to scale the original image by in order to 
+	 * reach the target size		
 	 */
 	private double getScaleFactor(int originalSize, int targetSize) 
 	{   
